@@ -1,0 +1,33 @@
+{
+  "name": "@base/eslint-config",
+  "version": "1.0.0",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "./vue.js",
+  "files": [
+    "vue.js",
+    "base.js",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "eslint": "^8",
+    "eslint-config-prettier": "^8",
+    "eslint-define-config": "^1.23.0",
+    "eslint-plugin-prettier": "^4",
+    "eslint-plugin-vue": "^9",
+    "vue-eslint-parser": "^9.3.1"
+  },
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

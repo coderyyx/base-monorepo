@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "new": "zx scripts/create-lib.mjs"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,10 @@
   "volta": {
     "node": "20.17.0",
     "pnpm": "9.15.4"
+  },
+  "devDependencies": {
+    "zx": "^8.6.1",
+    "fs-extra": "^11.3.0",
+    "inquirer": "^12.3.2"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "name": "@base/cli-ts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A template for building command-line tools with TypeScript.",
+  "keywords": [
+    "cli"
+  ],
+  "author": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "cli-ts": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "dev": "tsx watch src/cli.ts",
+    "lint": "eslint .",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "@base/prettier-config": "workspace:*",
+    "@types/node": "^20",
+    "eslint": "^9.25.1",
+    "globals": "^16.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1"
+  },
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  }
+}

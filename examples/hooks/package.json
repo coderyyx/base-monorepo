@@ -1,0 +1,57 @@
+{
+  "name": "@base/hooks-example",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/lib/index.js"
+    }
+  },
+  "main": "./dist/lib/index.js",
+  "module": "./dist/esm/index.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:cjs": "BUILD_FORMAT=cjs vite build",
+    "build:esm": "BUILD_FORMAT=esm vite build",
+    "start": "npm run build:esm -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.1.2",
+    "@base/eslint-config": "workspace:^1.0.0",
+    "@base/prettier-config": "workspace:^1.0.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "eslint": "8.57.1",
+    "lint-staged": "^15.2.10",
+    "prettier": "2.8.8",
+    "vite": "^6.1.0",
+    "vite-plugin-external": "^4.3.1",
+    "vue": "2.7.14"
+  },
+  "peerDependencies": {
+    "vue": "^2.7"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
