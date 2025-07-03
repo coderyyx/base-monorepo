@@ -70,6 +70,7 @@ async function main() {
 
   // 更新 package.json
   const pkgPath = path.join(targetDir, 'package.json');
+
   const pkg = await fs.readJson(pkgPath);
 
   Object.assign(pkg, {
@@ -91,18 +92,6 @@ async function main() {
   readme = readme.replace(/# .*/, `# ${name}`).replace(/> .*/, `> ${description}`);
 
   await fs.writeFile(readmePath, readme);
-
-  if (type === 'cdn') {
-    const gitlabCiPath = path.join(targetDir, '.gitlab-ci.yml');
-    let gitlabCi = await fs.readFile(gitlabCiPath, 'utf-8');
-
-    gitlabCi = gitlabCi
-      .replace(/cdn-example/g, shortName)
-      .replace(/cdn_example/g, shortName.replace(/-/g, '_'))
-      .replace(/CDN_EXAMPLE/g, shortName.toUpperCase().replace(/-/g, '_'));
-
-    await fs.writeFile(gitlabCiPath, gitlabCi);
-  }
 
   console.log('\n✨ 创建成功!');
   console.log(`\n下一步:\n`);
