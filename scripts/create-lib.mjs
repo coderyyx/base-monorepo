@@ -39,11 +39,11 @@ async function main() {
     {
       type: 'input',
       name: 'name',
-      message: '请输入包名 (例如: @base/xxx 或 @mx/xxx 或 @ugc/xxx):',
+      message: '请输入包名 (例如: @base/xxx):',
       validate: (input) => {
         if (!input) return '包名不能为空';
-        if (!input.startsWith('@base/') && !input.startsWith('@mx/') && !input.startsWith('@ugc/'))
-          return '包名必须以 @ug/ 或 @base/ 或 @mx/ 或 @ugc/ 开头';
+        if (!input.startsWith('@base/'))
+          return '包名必须以 @base/ 开头';
         return true;
       },
     },
@@ -53,10 +53,7 @@ async function main() {
       message: '请输入包描述:',
       default: ({ type, name }) =>
         `${TYPE_DESCRIPTIONS[type].split(' - ')[0]} ${name
-          .replace('@ug/', '')
-          .replace('@base/', '')
-          .replace('@mx/', '')
-          .replace('@ugc/', '')}`,
+          .replace('@base/', '')}`,
     },
   ]);
 
