@@ -1,1 +1,1 @@
-# monorepo 管理日常包发布
+# monorepo 管理包发布流程
