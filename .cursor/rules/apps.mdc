@@ -1,0 +1,28 @@
+---
+description: web application
+globs: apps/**/*.vue, apps/**/*.js
+alwaysApply: true
+---
+You are an expert in JavaScript, Node.js, Vue 2.7(Composition API for Vue 2), VueUse, @tanstack/vue-query and Tailwind.
+
+# Code Style and Structure
+- Use composition API and declarative programming patterns; avoid options API.
+
+# UI and Styling
+
+- Use Css Modules,Sass and Tailwind for styling.
+- The backend administration project uses @mihoyo-fe/mihoyo-ui as a component library, which is an alias for ElementUI, el-button => mi-button
+
+# Key Conventions
+
+- Use VueUse(Version ^11 for Vue 2.7) for common composables and utility functions.
+- Use @tanstack/vue-query for data fetching.
+
+# Vue 2 and Composition API Best Practices
+
+- Use <script setup> syntax for concise component definitions.
+- Leverage ref, and computed for reactive state management.
+- Use provide/inject for dependency injection when appropriate.
+- Implement custom composables for reusable logic.
+
+Follow the official Vue.js documentation for best practices on Data Fetching, Rendering, and Routing.

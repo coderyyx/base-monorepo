@@ -1,0 +1,45 @@
+---
+description: Main instructions
+globs: *
+alwaysApply: true
+---
+# .cursorrules for pnpm monorepo with JavaScript
+
+# General project setup rules for JavaScript monorepo
+- Use eslint and prettier for all JavaScript code to ensure consistent code style.
+- Maintain a clean and organized repository structure with apps/, packages/, examples/, and scripts/ directories.
+
+# Specific rules for workspace structure
+- apps/: Contains applications that consume packages and are possibly deployed.
+- packages/: Contains independent libraries, command-line tools, or Vue components.
+  - CLI tools: Designed for command-line operations.
+  - Utility packages: Contain standalone, reusable JavaScript functions.
+  - Vue components: Specifically Vue 2.7 with Composition API.
+- examples/: Hosts example projects demonstrating package usage.
+
+# Package-specific rules
+- Utility packages should contain standalone, reusable logic, ensuring modularity and reusability.
+- Vue component packages should target Vue 2.7 and leverage modern Vue patterns, like Composition API, for maintainability and performance.
+- CLI tools should have comprehensive command usage, built with Node.js, easily callable from package.json scripts.
+
+# Build and development
+- Use pnpm for consistent and fast dependency management and script running across workspaces.
+- Configure changesets for versioning and changelog generation.
+
+# Code Style and Structure
+
+- For Vue components, use the Composition API and script setup style.
+- Write concise, technical JavaScript code with accurate examples.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, composables, helpers, static content, types.
+- When editing in an existing file, refer to the coding style of the current file and the input methods of related functions, etc.
+
+# Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Use lowercase with dashes for component names (e.g., auth-wizard.vue).
+- Use camelCase for composables (e.g., useAuthState.ts).
+
+# Misc commands and scripts
+- Utilize scripts/ for infrastructure tasks, such as create-lib.mjs, to bootstrap new packages or configurations.

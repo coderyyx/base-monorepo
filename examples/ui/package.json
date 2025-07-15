@@ -1,0 +1,67 @@
+{
+  "name": "@base/ui-example",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/lib/index.js"
+    },
+    "./style": "./dist/style.css"
+  },
+  "main": "./dist/lib/index.js",
+  "module": "./dist/esm/index.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs && npm run relocate-css",
+    "build:cjs": "BUILD_FORMAT=cjs vite build",
+    "build:esm": "BUILD_FORMAT=esm vite build",
+    "relocate-css": "rm -rf dist/lib/style.css && mv dist/esm/style.css dist/style.css",
+    "start": "npm run build:esm -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.1.2",
+    "@base-one/eslint-config": "workspace:^1.0.0",
+    "@base-one/prettier-config": "workspace:^1.0.0",
+    "@base-one/tailwind": "workspace:*",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@vitejs/plugin-vue2": "^2.3.3",
+    "@vue/compiler-sfc": "^3.5.13",
+    "eslint": "8.57.1",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8.4.49",
+    "postcss-preset-env": "^9.6.0",
+    "prettier": "2.8.8",
+    "sass": "npm:sass-embedded@^1.83.1",
+    "tailwindcss": "3.4.14",
+    "vite": "^6.1.0",
+    "vite-plugin-external": "^4.3.1",
+    "vue": "2.7.14"
+  },
+  "peerDependencies": {
+    "vue": "^2.7"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+

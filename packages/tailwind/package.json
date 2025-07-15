@@ -1,0 +1,31 @@
+{
+  "name": "@base-one/tailwind",
+  "version": "1.0.0",
+  "private": true,
+  "description": "tailwind 配置",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "./src/index.js",
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@base-one/eslint-config": "workspace:*",
+    "@base-one/prettier-config": "workspace:*",
+    "eslint": "^8",
+    "prettier": "^2"
+  },
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+

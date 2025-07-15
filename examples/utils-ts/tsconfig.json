@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "lib": ["ES5", "ES2015.Promise"],
+    "strict": true,
+    "sourceMap": false,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
