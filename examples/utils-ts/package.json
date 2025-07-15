@@ -17,7 +17,7 @@
     "build": "rm -rf dist && tsc"
   },
   "devDependencies": {
-    "@base/prettier-config": "workspace:*",
+    "@base-one/prettier-config": "workspace:*",
     "@eslint/js": "^9.25.1",
     "@types/node": "^20",
     "eslint": "^9.25.1",

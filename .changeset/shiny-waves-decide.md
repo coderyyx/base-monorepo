@@ -1,5 +1,5 @@
 ---
-'@base/prettier-config': patch
+'@base-one/prettier-config': patch
 '@base/hooks': patch
 ---
 

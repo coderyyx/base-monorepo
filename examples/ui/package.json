@@ -35,8 +35,8 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.25.4",
     "@babel/preset-env": "^7.1.2",
+    "@base-one/prettier-config": "workspace:^1.0.0",
     "@base/eslint-config": "workspace:^1.0.0",
-    "@base/prettier-config": "workspace:^1.0.0",
     "@base/tailwind": "workspace:*",
     "@rollup/plugin-babel": "^6.0.4",
     "@vitejs/plugin-vue2": "^2.3.3",
@@ -64,3 +64,4 @@
     "access": "public"
   }
 }
+

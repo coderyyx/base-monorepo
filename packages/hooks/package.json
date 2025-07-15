@@ -1,5 +1,5 @@
 {
-  "name": "@base/hooks",
+  "name": "@base-one/hooks",
   "version": "1.0.0",
   "private": false,
   "description": "",
@@ -20,7 +20,7 @@
     "vue-router": "3"
   },
   "devDependencies": {
-    "@base/prettier-config": "workspace:*",
+    "@base-one/prettier-config": "workspace:*",
     "@eslint/js": "^9.25.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",
