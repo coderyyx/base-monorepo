@@ -1,7 +1,7 @@
 {
   "name": "@base-one/tailwind",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "tailwind 配置",
   "keywords": [],
   "license": "ISC",
