@@ -7,7 +7,7 @@ try {
   // 获取需要发布的包
   const releasePlan = await getReleasePlan(process.cwd());
 
-  console.log('releasePlan:', releasePlan.releases);
+  console.log('releasePlan:', releasePlan);
   // 过滤掉 private 包
   const pkgs = [];
   for (const release of releasePlan.releases || []) {
