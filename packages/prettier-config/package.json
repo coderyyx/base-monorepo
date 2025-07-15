@@ -1,7 +1,7 @@
 {
   "name": "@base/prettier-config",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "",
   "keywords": [],
   "license": "ISC",

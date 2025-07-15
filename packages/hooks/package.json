@@ -1,0 +1,40 @@
+{
+  "name": "@base/hooks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "sideEffects": false,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11",
+    "lodash-es": "^4.17.21",
+    "vue": "^2.7.16",
+    "vue-router": "3"
+  },
+  "devDependencies": {
+    "@base/prettier-config": "workspace:*",
+    "@eslint/js": "^9.25.1",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20",
+    "eslint": "^9.25.1",
+    "globals": "^16.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^2",
+    "type-fest": "^4.41.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1"
+  },
+  "volta": {
+    "node": "20.19.0",
+    "pnpm": "9.15.5"
+  }
+}
+
