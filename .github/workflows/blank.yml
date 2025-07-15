@@ -35,6 +35,22 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
+  # 调试任务 - 显示 GitHub 上下文信息
+  debug-context:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Debug GitHub context
+        run: |
+          echo "🔍 调试信息："
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Ref name: ${{ github.ref_name }}"
+          echo "Head ref: ${{ github.head_ref }}"
+          echo "Base ref: ${{ github.base_ref }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+
   # 快照版本发布任务
   snapshot-publish:
     runs-on: ubuntu-latest
