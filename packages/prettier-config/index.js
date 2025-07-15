@@ -3,7 +3,7 @@ module.exports = {
   plugins: [
     require('@ianvs/prettier-plugin-sort-imports'),
     require('prettier-plugin-packagejson'),
-    require('prettier-plugin-tailwindcss'),
+    // require('prettier-plugin-tailwindcss'),
   ],
   semi: true,
   singleQuote: true,

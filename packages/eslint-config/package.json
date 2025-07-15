@@ -16,7 +16,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "eslint": "^8",
+    "eslint": "^9",
     "eslint-config-prettier": "^8",
     "eslint-define-config": "^1.23.0",
     "eslint-plugin-prettier": "^4",

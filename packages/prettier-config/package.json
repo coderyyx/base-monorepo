@@ -1,7 +1,7 @@
 {
   "name": "@base/prettier-config",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -15,8 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "prettier-plugin-packagejson": "^2.5.3",
+    "@ianvs/prettier-plugin-sort-imports": "4.4.1",
+    "prettier-plugin-packagejson": "2.5.3",
     "prettier-plugin-tailwindcss": "0.4.1"
   },
   "volta": {
