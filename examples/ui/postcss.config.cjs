@@ -1,4 +1,4 @@
-const px2gpx = require('@base/tailwind/src/postcss-px2gpx');
+const px2gpx = require('@base-one/tailwind/src/postcss-px2gpx');
 const tailwindcss = require('tailwindcss');
 const postcssPresetEnv = require('postcss-preset-env');
 

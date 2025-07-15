@@ -1,5 +1,5 @@
 {
-  "name": "@base/tailwind",
+  "name": "@base-one/tailwind",
   "version": "1.0.0",
   "private": true,
   "description": "tailwind 配置",

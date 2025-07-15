@@ -1,18 +1,18 @@
-# @base/tailwind
+# @base-one/tailwind
 
 > 游戏工具 Tailwind CSS 配置包
 
 ## 快速开始
 
 ```bash
-pnpm add @base/tailwind -D
+pnpm add @base-one/tailwind -D
 # or
-npm i @base/tailwind -D
+npm i @base-one/tailwind -D
 ```
 
 ```js
 // tailwind.config.js
-const { preset } = require('@base/tailwind');
+const { preset } = require('@base-one/tailwind');
 
 module.exports = {
   ...preset,

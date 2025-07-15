@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@base-one/prettier-config": "workspace:*",
+    "@base-one/tailwind": "workspace:*",
     "@base/eslint-config": "workspace:*",
-    "@base/tailwind": "workspace:*",
     "@storybook/addon-essentials": "7.6.20",
     "@storybook/addon-interactions": "7.6.20",
     "@storybook/addon-links": "7.6.20",

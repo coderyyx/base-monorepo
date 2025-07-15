@@ -59,7 +59,7 @@ importers:
       '@base-one/prettier-config':
         specifier: workspace:*
         version: link:../../packages/prettier-config
-      '@base/tailwind':
+      '@base-one/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@storybook/addon-essentials':
@@ -221,7 +221,7 @@ importers:
       '@base-one/prettier-config':
         specifier: workspace:^1.0.0
         version: link:../../packages/prettier-config
-      '@base/tailwind':
+      '@base-one/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@rollup/plugin-babel':
