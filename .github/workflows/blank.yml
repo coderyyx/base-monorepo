@@ -1,36 +1,99 @@
-# This is a basic workflow to help you get started with Actions
+# 这是一个帮助您开始使用 Actions 的基础工作流
 
 name: CI
 
-# Controls when the workflow will run
+# 控制工作流何时运行
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # 仅在推送或拉取请求事件时触发工作流，但仅限于指定分支
   push:
-    branches: [ "test", "features" ]
+    branches: ['test', 'features']
   pull_request:
-    branches: [ "test", "features" ]
+    branches: ['test', 'features']
 
-  # Allows you to run this workflow manually from the Actions tab
+  # 允许您从 Actions 选项卡手动运行此工作流
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# 工作流运行由一个或多个可以顺序或并行运行的任务组成
 jobs:
-  # This workflow contains a single job called "build"
+  # 此工作流包含一个名为 "build" 的任务
   build:
-    # The type of runner that the job will run on
+    # 任务将运行的运行器类型
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # 步骤表示将作为任务的一部分执行的任务序列
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # 检出您的仓库到 $GITHUB_WORKSPACE，以便您的任务可以访问它
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      # 使用运行器的 shell 运行单个命令
+      - name: Run single line script
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # 使用运行器的 shell 运行一组命令
+      - name: Run multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  # 快照版本发布任务
+  snapshot-publish:
+    runs-on: ubuntu-latest
+    # 只在特定分支运行：test 或 features 分支
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      (github.ref == 'refs/heads/test' || github.ref == 'refs/heads/features')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取完整的 git 历史，changeset 需要
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.4'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Print versions
+        run: |
+          echo "📋 工具版本信息："
+          echo "Node.js: $(node --version)"
+          echo "pnpm: $(pnpm --version)"
+          echo "npm: $(npm --version)"
+          echo "zx: $(npx zx --version)"
+
+      - name: Build packages
+        run: pnpm exec zx ./scripts/build.mjs
+
+      - name: Check and publish snapshot
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # 检查是否有需要发布的包
+          if [[ -n "$(pnpm exec zx ./scripts/check-releases.mjs)" ]]; then
+            echo "📦 Found packages to publish, creating snapshot version..."
+            pnpm exec changeset version --snapshot beta
+            pnpm exec changeset publish --tag beta --no-git-tag --snapshot
+            echo "✅ Snapshot packages published successfully"
+          else
+            echo "ℹ️  No packages to publish"
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-dist
+          path: packages/*/dist
+          retention-days: 7
