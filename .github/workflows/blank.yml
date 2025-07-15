@@ -42,8 +42,41 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            packages/*/node_modules
+            apps/*/node_modules
+            examples/*/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # 检查缓存是否命中，如果命中则跳过部分安装步骤
+          if [ -d "node_modules" ] && [ -d "packages/hooks/node_modules" ]; then
+            echo "📦 Found cached node_modules, running quick install..."
+            pnpm install --frozen-lockfile --prefer-offline
+          else
+            echo "📦 Installing dependencies from scratch..."
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Print versions
         run: |
@@ -75,6 +108,7 @@ jobs:
           if [[ -n "$(pnpm exec zx ./scripts/check-releases.mjs)" ]]; then
             echo "📦 Found packages to publish, creating snapshot version..."
             pnpm exec changeset version --snapshot beta
+            # 使用 automation token 应该不需要 OTP，如果仍然需要，请检查令牌类型
             pnpm exec changeset publish --tag beta --no-git-tag --snapshot
             echo "✅ Snapshot packages published successfully"
           else
