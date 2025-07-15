@@ -6,22 +6,31 @@ name: 多包发布流程
 on:
   # 仅在推送或拉取请求事件时触发工作流，但仅限于指定分支
   push:
-    branches: ['test', 'features']
+    branches: ['test', 'features', 'main']
   pull_request:
-    branches: ['test', 'features']
+    branches: ['test', 'features', 'main']
 
   # 允许您从 Actions 选项卡手动运行此工作流
   workflow_dispatch:
+    inputs:
+      job_type:
+        description: '选择要执行的任务'
+        required: true
+        default: 'snapshot-publish'
+        type: choice
+        options:
+          - 'snapshot-publish'
+          - 'check-releases'
 
 # 工作流运行由一个或多个可以顺序或并行运行的任务组成
 jobs:
   # 快照版本发布任务
   snapshot-publish:
     runs-on: ubuntu-latest
-    # 在手动触发或推送到指定分支时运行：test 或 features 分支
+    # 在手动触发选择 snapshot-publish 或推送到 test/features 分支时运行
     if: |
-      (github.event_name == 'workflow_dispatch' || github.event_name == 'push') &&
-      (github.ref == 'refs/heads/test' || github.ref == 'refs/heads/features')
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_type == 'snapshot-publish' || github.event.inputs.job_type == '')) ||
+      (github.event_name == 'push' && (github.ref == 'refs/heads/test' || github.ref == 'refs/heads/features'))
 
     steps:
       - name: Checkout repository
@@ -39,44 +48,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.17.0'
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-            apps/*/node_modules
-            examples/*/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-
       - name: Install dependencies
-        run: |
-          # 检查缓存是否命中，如果命中则跳过部分安装步骤
-          if [ -d "node_modules" ] && [ -d "packages/hooks/node_modules" ]; then
-            echo "📦 Found cached node_modules, running quick install..."
-            pnpm install --frozen-lockfile --prefer-offline
-          else
-            echo "📦 Installing dependencies from scratch..."
-            pnpm install --frozen-lockfile
-          fi
+        run: pnpm install --frozen-lockfile
 
       - name: Print versions
         run: |
@@ -121,3 +96,45 @@ jobs:
           name: package-dist
           path: packages/*/dist
           retention-days: 7
+
+  # 检查发布包任务 - publish 命令必须放在 CI 中才可被 hook 从而注入鉴权 token
+  # 故发布相关命令没有抽离到 zx 脚本中
+  check-releases-packages:
+    runs-on: ubuntu-latest
+    # 手动触发时运行，且仅限于 main 分支
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.job_type == 'check-releases' &&
+      github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取完整的 git 历史，changeset 需要
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.4'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check releases packages
+        run: |
+          OUTPUT=$(pnpm exec zx ./scripts/check-releases.mjs)
+          if [[ -n "$OUTPUT" ]]; then
+            echo "⭐️ 即将发布以下 packages:"
+            echo "$OUTPUT"
+          else
+            echo "No packages to publish"
+            exit 1
+          fi
