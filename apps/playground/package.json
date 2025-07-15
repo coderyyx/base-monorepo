@@ -15,9 +15,9 @@
     "vue": "2.7.14"
   },
   "devDependencies": {
+    "@base-one/eslint-config": "workspace:*",
     "@base-one/prettier-config": "workspace:*",
     "@base-one/tailwind": "workspace:*",
-    "@base/eslint-config": "workspace:*",
     "@storybook/addon-essentials": "7.6.20",
     "@storybook/addon-interactions": "7.6.20",
     "@storybook/addon-links": "7.6.20",

@@ -1,5 +1,5 @@
 {
-  "name": "@base/eslint-config",
+  "name": "@base-one/eslint-config",
   "version": "1.0.0",
   "private": false,
   "description": "",

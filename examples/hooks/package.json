@@ -33,8 +33,8 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.25.4",
     "@babel/preset-env": "^7.1.2",
+    "@base-one/eslint-config": "workspace:^1.0.0",
     "@base-one/prettier-config": "workspace:^1.0.0",
-    "@base/eslint-config": "workspace:^1.0.0",
     "@rollup/plugin-babel": "^6.0.4",
     "eslint": "8.57.1",
     "lint-staged": "^15.2.10",

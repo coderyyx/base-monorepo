@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@base/eslint-config/vue'],
+  extends: ['@base-one/eslint-config/vue'],
 };
