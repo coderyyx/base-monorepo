@@ -252,10 +252,6 @@ chore: 构建/工具链更新
 4. 推送分支: `git push origin feature/amazing-feature`
 5. 创建 Pull Request
 
-## 📄 许可证
-
-[ISC](./LICENSE)
-
 ---
 
 <div align="center">
