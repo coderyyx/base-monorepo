@@ -1,6 +1,6 @@
 # 这是一个帮助您开始使用 Actions 的基础工作流
 
-name: CI
+name: 多包发布流程
 
 # 控制工作流何时运行
 on:
@@ -38,7 +38,7 @@ jobs:
   # 调试任务 - 显示 GitHub 上下文信息
   debug-context:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    #if: github.event_name == 'workflow_dispatch'
     steps:
       - name: Debug GitHub context
         run: |
