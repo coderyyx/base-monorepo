@@ -90,7 +90,6 @@ jobs:
           if [[ -n "$(pnpm exec zx ./scripts/check-releases.mjs)" ]]; then
             echo "📦 Found packages to publish, creating snapshot version..."
             pnpm exec changeset version --snapshot beta
-            # 使用 automation token 应该不需要 OTP，如果仍然需要，请检查令牌类型
             pnpm exec changeset publish --tag beta --no-git-tag --snapshot
             echo "✅ Snapshot packages published successfully"
           else
