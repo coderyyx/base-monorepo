@@ -138,3 +138,77 @@ jobs:
             echo "No packages to publish"
             exit 1
           fi
+
+  # 生产环境包发布任务
+  production-publish-pkg:
+    runs-on: ubuntu-latest
+    # 依赖于 check-releases-packages 任务成功完成
+    needs: ['check-releases-packages']
+    # 手动触发且仅限于 main 分支
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.job_type == 'check-releases' &&
+      github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取完整的 git 历史，changeset 需要
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.4'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure Git
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          git config --global user.email "yyxcoder@gmail.com"
+          git config --global user.name "yyxcoder"
+
+      - name: Setup npm authentication
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # 配置 npm 认证
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+
+      - name: Build, version and publish packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          OUTPUT=$(pnpm exec zx ./scripts/check-releases.mjs)
+          if [[ -n "$OUTPUT" ]]; then
+            echo "📦 构建包..."
+            pnpm exec zx ./scripts/build.mjs
+
+            echo "🔖 更新版本..."
+            pnpm exec changeset version
+
+            echo "🚀 发布包..."
+            pnpm exec changeset publish
+
+            echo "💾 提交版本变更..."
+            pnpm exec zx ./scripts/commit-version.mjs
+
+            echo "✅ 生产环境包发布完成"
+          else
+            echo "ℹ️  没有包需要发布"
+          fi
