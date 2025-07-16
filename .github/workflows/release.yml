@@ -177,7 +177,7 @@ jobs:
     # 仅在手动触发且选择 check-releases 时运行（安全考虑，不自动发布生产版本）
     if: |
       github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.job_type == 'check-releases' &&
+      github.event.inputs.job_type == 'check-releases-packages' &&
       github.ref == 'refs/heads/main'
 
     steps:
@@ -206,7 +206,7 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
           git config --global user.email "yyxcoder@gmail.com"
-          git config --global user.name "yyxcoder"
+          git config --global user.name "coderyyx"
 
       - name: Setup npm authentication
         env:
