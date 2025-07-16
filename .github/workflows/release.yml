@@ -96,13 +96,6 @@ jobs:
             echo "ℹ️  No packages to publish"
           fi
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: package-dist
-          path: packages/*/dist
-          retention-days: 7
-
   # 检查发布包任务 - publish 命令必须放在 CI 中才可被 hook 从而注入鉴权 token
   # 故发布相关命令没有抽离到 zx 脚本中
   check-releases-packages:
