@@ -19,41 +19,18 @@ on:
         default: 'snapshot-publish'
         type: choice
         options:
-          - 'snapshot-publish'
-          - 'check-releases'
+          - 'check-releases-packages'
+          - 'production-publish-pkg'
 
 # 工作流运行由一个或多个可以顺序或并行运行的任务组成
+
+# 设置工作流权限
+permissions:
+  contents: write # 允许读写仓库内容
+  packages: write # 允许发布包
+  pull-requests: write # 允许创建 PR
+
 jobs:
-  # 调试信息 job - 打印所有触发条件
-  debug-context:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print GitHub Context
-        run: |
-          echo "🔍 GitHub 上下文调试信息："
-          echo "Event name: ${{ github.event_name }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "Head ref: ${{ github.head_ref }}"
-          echo "Base ref: ${{ github.base_ref }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "Repository: ${{ github.repository }}"
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Job: ${{ github.job }}"
-          echo "Run ID: ${{ github.run_id }}"
-          echo "Run number: ${{ github.run_number }}"
-
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "Job type input: ${{ github.event.inputs.job_type }}"
-          fi
-
-          if [ "${{ github.event_name }}" = "push" ]; then
-            echo "Pushed to: ${{ github.ref }}"
-            echo "Is main branch: ${{ github.ref == 'refs/heads/main' }}"
-          fi
-
-          echo "📋 触发条件检查："
-          echo "是否为 push 到 main: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}"
-          echo "是否为手动 check-releases: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases' && github.ref == 'refs/heads/main' }}"
   # 快照版本发布任务
   snapshot-publish:
     runs-on: ubuntu-latest
@@ -133,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     # 两种情况下运行：1. 手动触发选择 check-releases；2. push 到 main 分支
     if: |
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases-packages' && github.ref == 'refs/heads/main') ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main')
 
     steps:
