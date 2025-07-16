@@ -24,6 +24,36 @@ on:
 
 # 工作流运行由一个或多个可以顺序或并行运行的任务组成
 jobs:
+  # 调试信息 job - 打印所有触发条件
+  debug-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub Context
+        run: |
+          echo "🔍 GitHub 上下文调试信息："
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Head ref: ${{ github.head_ref }}"
+          echo "Base ref: ${{ github.base_ref }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Job: ${{ github.job }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run number: ${{ github.run_number }}"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Job type input: ${{ github.event.inputs.job_type }}"
+          fi
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "Pushed to: ${{ github.ref }}"
+            echo "Is main branch: ${{ github.ref == 'refs/heads/main' }}"
+          fi
+
+          echo "📋 触发条件检查："
+          echo "是否为 push 到 main: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}"
+          echo "是否为手动 check-releases: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases' && github.ref == 'refs/heads/main' }}"
   # 快照版本发布任务
   snapshot-publish:
     runs-on: ubuntu-latest
@@ -101,13 +131,23 @@ jobs:
   # 故发布相关命令没有抽离到 zx 脚本中
   check-releases-packages:
     runs-on: ubuntu-latest
-    # 手动触发时运行，且仅限于 main 分支
+    # 两种情况下运行：1. 手动触发选择 check-releases；2. push 到 main 分支
     if: |
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.job_type == 'check-releases' &&
-      github.ref == 'refs/heads/main'
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
 
     steps:
+      - name: Print job trigger info
+        run: |
+          echo "🎯 check-releases-packages 任务触发信息："
+          echo "Event: ${{ github.event_name }}"
+          echo "Branch: ${{ github.ref }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual trigger - Job type: ${{ github.event.inputs.job_type }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            echo "Push trigger - Target branch: ${{ github.ref }}"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -130,12 +170,25 @@ jobs:
 
       - name: Check releases packages
         run: |
+          echo "🔍 开始检查需要发布的包..."
+          echo "当前分支: ${{ github.ref }}"
+          echo "触发事件: ${{ github.event_name }}"
+
           OUTPUT=$(pnpm exec zx ./scripts/check-releases.mjs)
+          echo "📋 检查结果："
+          echo "Script output: '$OUTPUT'"
+          echo "Output length: ${#OUTPUT}"
+
           if [[ -n "$OUTPUT" ]]; then
             echo "⭐️ 即将发布以下 packages:"
             echo "$OUTPUT"
+            echo "✅ 找到需要发布的包"
           else
-            echo "No packages to publish"
+            echo "❌ 没有找到需要发布的包"
+            echo "💡 这可能意味着："
+            echo "  - 没有 changesets 文件"
+            echo "  - 所有变更已经发布"
+            echo "  - changeset 配置有问题"
             exit 1
           fi
 
@@ -144,7 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     # 依赖于 check-releases-packages 任务成功完成
     needs: ['check-releases-packages']
-    # 手动触发且仅限于 main 分支
+    # 仅在手动触发且选择 check-releases 时运行（安全考虑，不自动发布生产版本）
     if: |
       github.event_name == 'workflow_dispatch' &&
       github.event.inputs.job_type == 'check-releases' &&
