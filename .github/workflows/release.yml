@@ -19,10 +19,17 @@ on:
         default: 'snapshot-publish'
         type: choice
         options:
-          - 'snapshot-publish'
-          - 'check-releases'
+          - 'check-releases-packages'
+          - 'production-publish-pkg'
 
 # 工作流运行由一个或多个可以顺序或并行运行的任务组成
+
+# 设置工作流权限
+permissions:
+  contents: write # 允许读写仓库内容
+  packages: write # 允许发布包
+  pull-requests: write # 允许创建 PR
+
 jobs:
   # 快照版本发布任务
   snapshot-publish:
@@ -103,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     # 两种情况下运行：1. 手动触发选择 check-releases；2. push 到 main 分支
     if: |
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.job_type == 'check-releases-packages' && github.ref == 'refs/heads/main') ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main')
 
     steps:
