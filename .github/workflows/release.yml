@@ -223,6 +223,9 @@ jobs:
         run: |
           OUTPUT=$(pnpm exec zx ./scripts/check-releases.mjs)
           if [[ -n "$OUTPUT" ]]; then
+            echo "📋 检测到需要发布的包："
+            echo "$OUTPUT"
+            echo ""
             echo "📦 构建包..."
             pnpm exec zx ./scripts/build.mjs
 
