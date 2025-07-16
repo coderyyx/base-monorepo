@@ -1,5 +1,11 @@
 # @base-one/prettier-config
 
+## 1.0.0
+
+### Major Changes
+
+- a0c7ad8: prettier-config major
+
 ## 0.0.2
 
 ### Patch Changes
