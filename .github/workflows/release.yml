@@ -6,9 +6,9 @@ name: 多包发布流程
 on:
   # 仅在推送或拉取请求事件时触发工作流，但仅限于指定分支
   push:
-    branches: ['test', 'features', 'main']
+    branches: ['test', 'feat/**', 'main']
   pull_request:
-    branches: ['test', 'features', 'main']
+    branches: ['test', 'feat/**', 'main']
 
   # 允许您从 Actions 选项卡手动运行此工作流
   workflow_dispatch:
@@ -34,10 +34,10 @@ jobs:
   # 快照版本发布任务
   snapshot-publish:
     runs-on: ubuntu-latest
-    # 在手动触发选择 snapshot-publish 或推送到 test/features 分支时运行
+    # 在手动触发选择 snapshot-publish 或推送到 test/feat/* 分支时运行
     if: |
       (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_type == 'snapshot-publish' || github.event.inputs.job_type == '')) ||
-      (github.event_name == 'push' && (github.ref == 'refs/heads/test' || github.ref == 'refs/heads/features'))
+      (github.event_name == 'push' && (github.ref == 'refs/heads/test' || startsWith(github.ref, 'refs/heads/feat/')))
 
     steps:
       - name: Checkout repository
@@ -90,7 +90,6 @@ jobs:
           if [[ -n "$(pnpm exec zx ./scripts/check-releases.mjs)" ]]; then
             echo "📦 Found packages to publish, creating snapshot version..."
             pnpm exec changeset version --snapshot beta
-            # 使用 automation token 应该不需要 OTP，如果仍然需要，请检查令牌类型
             pnpm exec changeset publish --tag beta --no-git-tag --snapshot
             echo "✅ Snapshot packages published successfully"
           else
@@ -172,12 +171,10 @@ jobs:
   # 生产环境包发布任务
   production-publish-pkg:
     runs-on: ubuntu-latest
-    # 依赖于 check-releases-packages 任务成功完成
-    needs: ['check-releases-packages']
-    # 仅在手动触发且选择 check-releases 时运行（安全考虑，不自动发布生产版本）
+    # 仅在手动触发且选择 production-publish-pkg 时运行（安全考虑，不自动发布生产版本）
     if: |
       github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.job_type == 'check-releases-packages' &&
+      github.event.inputs.job_type == 'production-publish-pkg' &&
       github.ref == 'refs/heads/main'
 
     steps:
