@@ -30,7 +30,7 @@ base-monorepo/
 - **构建工具**: Vite + TypeScript + SWC
 - **代码质量**: ESLint + Prettier + Husky + lint-staged
 - **版本管理**: Changesets 自动化版本发布
-- **CI/CD**: GitHub Actions 自动构建与发布
+- **CI/CD**: GitHub Actions 自动构建与发布 → [详细工作流分析](./CI-WORKFLOW-ANALYSIS.md)
 
 ### 🎨 UI & 样式
 
@@ -128,8 +128,10 @@ pnpm run new
 # 添加变更记录
 pnpm changeset
 
-推送变更记录到远程仓库自动触发 CI/CD 流程，执行包的构建与发布
+# 推送变更记录到远程仓库自动触发 CI/CD 流程，执行包的构建与发布
 ```
+
+> 💡 **CI/CD 详细说明**：查看 [GitHub Actions 工作流分析](./CI-WORKFLOW-ANALYSIS.md) 了解完整的发布流程、安全机制和使用指南。
 
 ### 📱 开发调试
 
