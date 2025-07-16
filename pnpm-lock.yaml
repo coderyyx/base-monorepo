@@ -177,10 +177,10 @@ importers:
         specifier: ^7.1.2
         version: 7.28.0(@babel/core@7.28.0)
       '@base-one/eslint-config':
-        specifier: workspace:^1.0.0
+        specifier: workspace:*
         version: link:../../packages/eslint-config
       '@base-one/prettier-config':
-        specifier: workspace:^1.0.0
+        specifier: workspace:*
         version: link:../../packages/prettier-config
       '@rollup/plugin-babel':
         specifier: ^6.0.4
@@ -217,10 +217,10 @@ importers:
         specifier: ^7.1.2
         version: 7.28.0(@babel/core@7.28.0)
       '@base-one/eslint-config':
-        specifier: workspace:^1.0.0
+        specifier: workspace:*
         version: link:../../packages/eslint-config
       '@base-one/prettier-config':
-        specifier: workspace:^1.0.0
+        specifier: workspace:*
         version: link:../../packages/prettier-config
       '@base-one/tailwind':
         specifier: workspace:*
