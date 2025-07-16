@@ -1,6 +1,6 @@
 {
   "name": "@base-one/tailwind",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "tailwind 配置",
   "keywords": [],
