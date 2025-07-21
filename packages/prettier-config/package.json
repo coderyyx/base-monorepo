@@ -6,9 +6,18 @@
   "keywords": [],
   "license": "ISC",
   "author": "",
-  "main": "./index.js",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./index.cjs",
+  "module": "./index.js",
   "files": [
     "index.js",
+    "index.cjs",
     "README.md"
   ],
   "scripts": {

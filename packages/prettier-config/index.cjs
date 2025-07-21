@@ -1,13 +1,9 @@
-import sortImports from '@ianvs/prettier-plugin-sort-imports';
-import packageJson from 'prettier-plugin-packagejson';
-// import tailwindcss from 'prettier-plugin-tailwindcss';
-
-export default {
+module.exports = {
   pluginSearchDirs: false,
   plugins: [
-    sortImports,
-    packageJson,
-    // tailwindcss,
+    require('@ianvs/prettier-plugin-sort-imports'),
+    require('prettier-plugin-packagejson'),
+    // require('prettier-plugin-tailwindcss'),
   ],
   semi: true,
   singleQuote: true,
