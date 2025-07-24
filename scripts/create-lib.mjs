@@ -10,6 +10,7 @@ const TEMPLATE_MAP = {
   utilsTs: 'examples/utils-ts',
   utilsJs: 'examples/utils-js',
   cliTs: 'examples/cli-ts',
+  vueHooksTs: 'examples/vue-hooks-ts',
 };
 
 const TYPE_DESCRIPTIONS = {
@@ -18,6 +19,7 @@ const TYPE_DESCRIPTIONS = {
   cliTs: 'CLI 工具 - 提供命令行工具（TypeScript）',
   hooks: 'Hooks 库 - 提供可复用的组合式函数',
   utilsJs: '工具库 - 提供独立的工具函数集合 (JavaScript)',
+  vueHooksTs: 'Vue Hooks 库 - 提供可复用的组合式函数 (TypeScript)',
 };
 
 // 定义需要过滤的文件和目录
