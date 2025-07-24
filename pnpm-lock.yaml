@@ -265,6 +265,43 @@ importers:
         specifier: 2.7.14
         version: 2.7.14
 
+  examples/utils-js:
+    dependencies:
+      '@babel/runtime':
+        specifier: ^7
+        version: 7.27.6
+    devDependencies:
+      '@babel/plugin-transform-runtime':
+        specifier: ^7.25.4
+        version: 7.28.0(@babel/core@7.28.0)
+      '@babel/preset-env':
+        specifier: ^7.1.2
+        version: 7.28.0(@babel/core@7.28.0)
+      '@base-one/eslint-config':
+        specifier: workspace:^1.0.0
+        version: link:../../packages/eslint-config
+      '@base-one/prettier-config':
+        specifier: workspace:^1.0.0
+        version: link:../../packages/prettier-config
+      '@rollup/plugin-babel':
+        specifier: ^6.0.4
+        version: 6.0.4(@babel/core@7.28.0)(@types/babel__core@7.20.5)(rollup@4.44.1)
+      eslint:
+        specifier: 8.57.1
+        version: 8.57.1
+      lint-staged:
+        specifier: ^15.2.10
+        version: 15.5.2
+      prettier:
+        specifier: 2.8.8
+        version: 2.8.8
+      vite:
+        specifier: ^6.1.0
+        version: 6.3.5(@types/node@20.19.4)(jiti@2.4.2)(sass-embedded@1.89.2)(sass-embedded@1.89.2)(tsx@4.20.3)(yaml@2.8.0)
+      vite-plugin-external:
+        specifier: ^4.3.1
+        version: 4.3.1
+
   examples/utils-ts:
     devDependencies:
       '@base-one/prettier-config':
@@ -391,6 +428,49 @@ importers:
       prettier:
         specifier: ^2
         version: 2.8.8
+
+  packages/uitls-js:
+    dependencies:
+      '@babel/runtime':
+        specifier: ^7
+        version: 7.27.6
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@babel/plugin-transform-runtime':
+        specifier: ^7.25.4
+        version: 7.28.0(@babel/core@7.28.0)
+      '@babel/preset-env':
+        specifier: ^7.1.2
+        version: 7.28.0(@babel/core@7.28.0)
+      '@base-one/eslint-config':
+        specifier: workspace:^1.0.0
+        version: link:../eslint-config
+      '@base-one/prettier-config':
+        specifier: workspace:^1.0.0
+        version: link:../prettier-config
+      '@rollup/plugin-babel':
+        specifier: ^6.0.4
+        version: 6.0.4(@babel/core@7.28.0)(@types/babel__core@7.20.5)(rollup@4.44.1)
+      '@rollup/plugin-commonjs':
+        specifier: ^27.0.0
+        version: 27.0.0(rollup@4.44.1)
+      '@rollup/plugin-node-resolve':
+        specifier: ^15.2.3
+        version: 15.3.1(rollup@4.44.1)
+      eslint:
+        specifier: 8.57.1
+        version: 8.57.1
+      lint-staged:
+        specifier: ^15.2.10
+        version: 15.5.2
+      prettier:
+        specifier: 2.8.8
+        version: 2.8.8
+      rollup:
+        specifier: ^4.12.0
+        version: 4.44.1
 
 packages:
 
@@ -2577,6 +2657,24 @@ packages:
       rollup:
         optional: true
 
+  '@rollup/plugin-commonjs@27.0.0':
+    resolution: {integrity: sha512-zSq7xlCb5aLRAS+rE6mE+++fEWvWQ8RQ+A4HkBT8bUW/cdYnrFJKRlgdb76XSekgU1n4Rssi/mrOG4GL8D9AwQ==, tarball: https://registry.npmmirror.com/@rollup/plugin-commonjs/-/plugin-commonjs-27.0.0.tgz}
+    engines: {node: '>=16.0.0 || 14 >= 14.17'}
+    peerDependencies:
+      rollup: ^2.68.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
+  '@rollup/plugin-node-resolve@15.3.1':
+    resolution: {integrity: sha512-tgg6b91pAybXHJQMAAwW9VuWBO6Thi+q7BCNARLwSqlmsHz0XYURtGvh/AuwSADXSI4h/2uHbs7s4FzlZDGSGA==, tarball: https://registry.npmmirror.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.3.1.tgz}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^2.78.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@rollup/pluginutils@5.2.0':
     resolution: {integrity: sha512-qWJ2ZTbmumwiLFomfzTyt5Kng4hwPi9rwCYN4SHb6eaRU1KNO4ccxINHr/VhH4GgPlt1XfSTLX2LBTme8ne4Zw==, tarball: https://registry.npmmirror.com/@rollup/pluginutils/-/pluginutils-5.2.0.tgz}
     engines: {node: '>=14.0.0'}
@@ -3023,6 +3121,9 @@ packages:
 
   '@types/react@19.1.8':
     resolution: {integrity: sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==, tarball: https://registry.npmmirror.com/@types/react/-/react-19.1.8.tgz}
+
+  '@types/resolve@1.20.2':
+    resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==, tarball: https://registry.npmmirror.com/@types/resolve/-/resolve-1.20.2.tgz}
 
   '@types/semver@7.7.0':
     resolution: {integrity: sha512-k107IF4+Xr7UHjwDc7Cfd6PRQfbdkiRabXGRjo07b4WyPahFBZCZ1sE+BNxYIJPPg73UkfOsVOLwqVc/6ETrIA==, tarball: https://registry.npmmirror.com/@types/semver/-/semver-7.7.0.tgz}
@@ -3805,6 +3906,10 @@ packages:
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==, tarball: https://registry.npmmirror.com/deep-is/-/deep-is-0.1.4.tgz}
+
+  deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==, tarball: https://registry.npmmirror.com/deepmerge/-/deepmerge-4.3.1.tgz}
+    engines: {node: '>=0.10.0'}
 
   default-browser-id@3.0.0:
     resolution: {integrity: sha512-OZ1y3y0SqSICtE8DE4S8YOE9UZOJ8wO16fKWVP5J1Qz42kV9jcnMVFrEE/noXb/ss3Q4pZIH79kxofzyNNtUNA==, tarball: https://registry.npmmirror.com/default-browser-id/-/default-browser-id-3.0.0.tgz}
@@ -4679,6 +4784,9 @@ packages:
     resolution: {integrity: sha512-1Qed0/Hr2m+YqxnM09CjA2d/i6YZNfF6R2oRAOj36eUdS6qIV/huPJNSEpKbupewFs+ZsJlxsjjPbc0/afW6Lw==, tarball: https://registry.npmmirror.com/is-map/-/is-map-2.0.3.tgz}
     engines: {node: '>= 0.4'}
 
+  is-module@1.0.0:
+    resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==, tarball: https://registry.npmmirror.com/is-module/-/is-module-1.0.0.tgz}
+
   is-nan@1.3.2:
     resolution: {integrity: sha512-E+zBKpQ2t6MEo1VsonYmluk9NxGrbzpeeLC2xIViuO2EjU2xsXsBPwTr3Ykv9l08UYEVEdWeRZNouaZqF6RN0w==, tarball: https://registry.npmmirror.com/is-nan/-/is-nan-1.3.2.tgz}
     engines: {node: '>= 0.4'}
@@ -4717,6 +4825,9 @@ packages:
 
   is-promise@2.2.2:
     resolution: {integrity: sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==, tarball: https://registry.npmmirror.com/is-promise/-/is-promise-2.2.2.tgz}
+
+  is-reference@1.2.1:
+    resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==, tarball: https://registry.npmmirror.com/is-reference/-/is-reference-1.2.1.tgz}
 
   is-regex@1.2.1:
     resolution: {integrity: sha512-MjYsKHO5O7mCsmRGxWcLWheFqN9DJ/2TmngvjKXihe6efViPqc274+Fx/4fYj/r03+ESvBdTXK0V6tA3rgez1g==, tarball: https://registry.npmmirror.com/is-regex/-/is-regex-1.2.1.tgz}
@@ -9492,6 +9603,27 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@rollup/plugin-commonjs@27.0.0(rollup@4.44.1)':
+    dependencies:
+      '@rollup/pluginutils': 5.2.0(rollup@4.44.1)
+      commondir: 1.0.1
+      estree-walker: 2.0.2
+      glob: 10.4.5
+      is-reference: 1.2.1
+      magic-string: 0.30.17
+    optionalDependencies:
+      rollup: 4.44.1
+
+  '@rollup/plugin-node-resolve@15.3.1(rollup@4.44.1)':
+    dependencies:
+      '@rollup/pluginutils': 5.2.0(rollup@4.44.1)
+      '@types/resolve': 1.20.2
+      deepmerge: 4.3.1
+      is-module: 1.0.0
+      resolve: 1.22.10
+    optionalDependencies:
+      rollup: 4.44.1
+
   '@rollup/pluginutils@5.2.0(rollup@4.44.1)':
     dependencies:
       '@types/estree': 1.0.8
@@ -10297,6 +10429,8 @@ snapshots:
   '@types/react@19.1.8':
     dependencies:
       csstype: 3.1.3
+
+  '@types/resolve@1.20.2': {}
 
   '@types/semver@7.7.0': {}
 
@@ -11173,6 +11307,8 @@ snapshots:
       which-typed-array: 1.1.19
 
   deep-is@0.1.4: {}
+
+  deepmerge@4.3.1: {}
 
   default-browser-id@3.0.0:
     dependencies:
@@ -12174,6 +12310,8 @@ snapshots:
 
   is-map@2.0.3: {}
 
+  is-module@1.0.0: {}
+
   is-nan@1.3.2:
     dependencies:
       call-bind: 1.0.8
@@ -12201,6 +12339,10 @@ snapshots:
       isobject: 3.0.1
 
   is-promise@2.2.2: {}
+
+  is-reference@1.2.1:
+    dependencies:
+      '@types/estree': 1.0.8
 
   is-regex@1.2.1:
     dependencies:
