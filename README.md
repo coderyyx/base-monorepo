@@ -1,6 +1,6 @@
 # Base Monorepo
 
-一个基于 pnpm 的现代化前端 monorepo 项目，专注于 Vue 2.7 生态系统的组件库、工具库和开发配置的统一管理与发布。
+一个基于 pnpm 的现代化前端 monorepo 项目，专注于组件库、工具库的统一管理与发布。支持快捷创建多种类型的包。
 
 ## 🏗️ 项目架构
 
@@ -24,10 +24,18 @@ base-monorepo/
 
 ## 🚀 核心特性
 
+### 支持创建多种类型的包
+
+- **工具库** (`utilsTs`) - TypeScript 工具函数集合
+- **工具库** (`utilsJs`) - JavaScript 工具函数集合
+- **组件库** (`ui`) - Vue 组件集合
+- **CLI 工具** (`cliTs`) - 命令行工具（TypeScript）
+- **Hooks 库** (`hooks`) - Vue Composition API hooks
+
 ### 📋 开发工具链
 
 - **包管理**: pnpm workspace 多包管理
-- **构建工具**: Vite + TypeScript + SWC
+- **构建工具**: Rollup + TypeScript
 - **代码质量**: ESLint + Prettier + Husky + lint-staged
 - **版本管理**: Changesets 自动化版本发布
 - **CI/CD**: GitHub Actions 自动构建与发布 → [详细工作流分析](./CI-WORKFLOW-ANALYSIS.md)
@@ -37,54 +45,6 @@ base-monorepo/
 - **Vue 2.7**: 支持 Composition API
 - **样式方案**: CSS Modules + Sass + Tailwind CSS
 - **设计系统**: 统一主题配置与色彩体系
-
-### 🔌 核心包能力
-
-#### `@base-one/hooks` - Vue Hooks 库
-
-```bash
-pnpm add @base-one/hooks
-```
-
-- ✅ 基于 Vue 2.7 Composition API
-- ✅ TypeScript 类型支持
-- ✅ Tree-shaking 友好
-- ✅ VueUse 集成
-
-**主要功能**:
-
-- `useFinalModal` - 模态框管理 hook
-- `useInstance` - 组件实例访问 hook
-
-#### `@base-one/eslint-config` - ESLint 配置
-
-```bash
-pnpm add -D @base-one/eslint-config
-```
-
-- ✅ Vue 2.7 规则配置
-- ✅ Prettier 集成
-- ✅ TypeScript 支持
-
-#### `@base-one/prettier-config` - 代码格式化配置
-
-```bash
-pnpm add -D @base-one/prettier-config
-```
-
-- ✅ 统一代码风格
-- ✅ 导入排序优化
-- ✅ Vue 文件格式化
-
-#### `@base-one/tailwind` - Tailwind 配置包
-
-```bash
-pnpm add -D @base-one/tailwind
-```
-
-- ✅ 预设主题配置
-- ✅ 自定义插件集成
-- ✅ 设计令牌系统
 
 ## 🛠️ 开发指南
 
@@ -115,11 +75,12 @@ pnpm run playground:start
 pnpm run new
 ```
 
-脚本支持 4 种包类型：
+脚本支持 5 种包类型：
 
 - **工具库** (`utilsTs`) - TypeScript 工具函数集合
+- **工具库** (`utilsJs`) - JavaScript 工具函数集合
 - **组件库** (`ui`) - Vue 组件集合
-- **CLI 工具** (`cliTs`) - 命令行工具
+- **CLI 工具** (`cliTs`) - 命令行工具（TypeScript）
 - **Hooks 库** (`hooks`) - Vue Composition API hooks
 
 ### 🏗️ 构建与发布
@@ -163,34 +124,6 @@ packages:
   "updateInternalDependencies": "patch",
   "ignore": ["@base/playground", "@base/*-example"]
 }
-```
-
-### ESLint 使用
-
-```js
-// .eslintrc.js
-module.exports = {
-  extends: ['@base-one/eslint-config/vue'],
-};
-```
-
-### Prettier 使用
-
-```js
-// .prettierrc.js
-module.exports = require('@base-one/prettier-config');
-```
-
-### Tailwind 使用
-
-```js
-// tailwind.config.js
-const { preset } = require('@base-one/tailwind');
-
-module.exports = {
-  presets: [preset],
-  content: ['./src/**/*.{vue,js,ts}'],
-};
 ```
 
 ## 📝 开发规范
