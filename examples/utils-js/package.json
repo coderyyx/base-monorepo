@@ -22,8 +22,8 @@
   ],
   "scripts": {
     "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
-    "build:cjs": "BUILD_FORMAT=cjs rollup -c rollup.config.mjs",
-    "build:esm": "BUILD_FORMAT=esm rollup -c rollup.config.mjs",
+    "build:cjs": "BUILD_FORMAT=cjs rollup -c",
+    "build:esm": "BUILD_FORMAT=esm rollup -c",
     "start": "npm run build:esm -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
