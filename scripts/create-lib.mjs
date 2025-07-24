@@ -8,6 +8,7 @@ const TEMPLATE_MAP = {
   ui: 'examples/ui',
   hooks: 'examples/hooks',
   utilsTs: 'examples/utils-ts',
+  utilsJs: 'examples/utils-js',
   cliTs: 'examples/cli-ts',
 };
 
@@ -16,6 +17,7 @@ const TYPE_DESCRIPTIONS = {
   ui: '组件库 - 提供可复用的 Vue 组件',
   cliTs: 'CLI 工具 - 提供命令行工具（TypeScript）',
   hooks: 'Hooks 库 - 提供可复用的组合式函数',
+  utilsJs: '工具库 - 提供独立的工具函数集合 (JavaScript)',
 };
 
 // 定义需要过滤的文件和目录
@@ -39,11 +41,10 @@ async function main() {
     {
       type: 'input',
       name: 'name',
-      message: '请输入包名 (例如: @base/xxx):',
+      message: '请输入包名 (例如: @base-one/xxx):',
       validate: (input) => {
         if (!input) return '包名不能为空';
-        if (!input.startsWith('@base/'))
-          return '包名必须以 @base/ 开头';
+        if (!input.startsWith('@base-one/')) return '包名必须以 @base-one/ 开头';
         return true;
       },
     },
@@ -52,14 +53,12 @@ async function main() {
       name: 'description',
       message: '请输入包描述:',
       default: ({ type, name }) =>
-        `${TYPE_DESCRIPTIONS[type].split(' - ')[0]} ${name
-          .replace('@base/', '')}`,
+        `${TYPE_DESCRIPTIONS[type].split(' - ')[0]} ${name.replace('@base-one/', '')}`,
     },
   ]);
 
   const { type, name, description } = answers;
-  const shortName = name
-    .replace('@base/', '')
+  const shortName = name.replace('@base-one/', '');
   const targetDir = `packages/${shortName}`;
 
   // 复制模板，添加过滤器
@@ -79,7 +78,7 @@ async function main() {
     version: '0.0.0',
     private: false,
     publishConfig: {
-      access: 'public'
+      access: 'public',
     },
   });
 
