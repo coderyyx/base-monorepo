@@ -1,0 +1,67 @@
+{
+  "name": "@base-one/utils-ts-rollup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TypeScript 版本的 Rollup 配置",
+  "keywords": [
+    "utils",
+    "typescript",
+    "rollup"
+  ],
+  "license": "ISC",
+  "author": "",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/lib/index.js"
+    }
+  },
+  "main": "./dist/lib/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:cjs": "BUILD_FORMAT=cjs rollup -c --bundleConfigAsCjs",
+    "build:esm": "BUILD_FORMAT=esm rollup -c --bundleConfigAsCjs",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
+    "start": "npm run build:esm -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.1.2",
+    "@babel/preset-typescript": "^7.25.4",
+    "@base-one/eslint-config": "workspace:^1.0.0",
+    "@base-one/prettier-config": "workspace:^1.0.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^27.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "eslint": "8.57.1",
+    "lint-staged": "^15.2.10",
+    "prettier": "2.8.8",
+    "rollup": "^4.12.0",
+    "typescript": "^5.7.2",
+    "vue": "2.7.14"
+  },
+  "peerDependencies": {
+    "vue": "^2.7"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "volta": {
+    "node": "20.17.0",
+    "pnpm": "9.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
