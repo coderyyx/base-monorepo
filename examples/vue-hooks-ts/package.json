@@ -12,7 +12,6 @@
   "license": "ISC",
   "author": "",
   "sideEffects": false,
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",

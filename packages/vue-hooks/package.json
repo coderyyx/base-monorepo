@@ -1,7 +1,7 @@
 {
   "name": "@base-one/vue-hooks",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "description": "Vue Hooks 库 vue-hooks",
   "keywords": [
     "vue",
@@ -12,7 +12,6 @@
   "license": "ISC",
   "author": "",
   "sideEffects": false,
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
