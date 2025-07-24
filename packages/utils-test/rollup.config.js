@@ -1,11 +1,9 @@
-import { readFileSync } from 'fs';
-
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
+import pkg from './package.json';
 
 const isESModule = process.env.BUILD_FORMAT === 'esm';
 
