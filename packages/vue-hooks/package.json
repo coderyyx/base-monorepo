@@ -1,8 +1,8 @@
 {
-  "name": "@base-one/vue-hooks-ts",
+  "name": "@base-one/vue-hooks",
   "version": "1.0.0",
   "private": false,
-  "description": "TypeScript 版本的 Vue 2.7 Composition API Hooks 库",
+  "description": "Vue Hooks 库 vue-hooks",
   "keywords": [
     "vue",
     "hooks",
