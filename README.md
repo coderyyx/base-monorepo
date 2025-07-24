@@ -81,7 +81,8 @@ pnpm run new
 - **工具库** (`utilsJs`) - JavaScript 工具函数集合
 - **组件库** (`ui`) - Vue 组件集合
 - **CLI 工具** (`cliTs`) - 命令行工具（TypeScript）
-- **Hooks 库** (`hooks`) - Vue Composition API hooks
+- **Hooks 库** (`hooks`) - Vue Composition API hooks（JavaScript）
+- **Hooks 库** (`vue-hooks-ts`) - Vue 2.7 Composition API hooks 库（TypeScript）
 
 ### 🏗️ 构建与发布
 
